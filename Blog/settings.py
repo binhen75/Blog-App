@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+
+ALLOWED_HOSTS = ['*']
+
 #My settings
 LOGIN_URL = 'users:login'
 
