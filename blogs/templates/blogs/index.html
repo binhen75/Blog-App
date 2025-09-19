@@ -1,0 +1,22 @@
+{% extends "blogs/base.html" %}
+
+{% block page_header %}
+    <h1>Posts</h1>
+{% endblock page_header %}
+
+{% block content %}
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2>{{post.title}}</h2>
+                {{post.text}}
+                {{post.date_added}}
+                <a href="{% url 'blogs:edit_post' post.id %}">Edit</a>
+            </li>
+        {% empty %}
+            <li>
+                No posts have been added
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+        <a class="navbar-brand" href="{% url 'blogs:index' %}">Posts</a>
+        <a class="navbar-brand" href="{% url 'blogs:new_post' %}">Add a new post</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span></button>
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="navbar-text m-3" >Hello, {{ user.username }}.</span>
+                </li>
+                <li class="nav-item">
+                    <form class="d-flex" method="post" action="{% url 'users:logout' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-success m-3" type="submit">logout</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <form class="d-flex" method="post" action="{% url 'users:login' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-success m-3" type="submit">login</button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <form class="d-flex" method="post" action="{% url 'users:register' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-success m-3" type="submit">register</button>
+                    </form>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main role="main" class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page_header %}{% endblock page_header %}
+        </div>
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-body">
+                    {% block content %}{% endblock content %}
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
