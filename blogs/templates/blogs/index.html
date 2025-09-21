@@ -9,8 +9,9 @@
         {% for post in posts %}
             <li>
                 <h2>{{post.title}}</h2>
-                {{post.text}}
-                {{post.date_added}}
+                <div>{{post.text}}</div>
+                <div><p class="font-weight-light">{{post.date_added}}</p></div>
+                <div><p class="font-italic">By {{post.owner}}</p></div>
                 <a href="{% url 'blogs:edit_post' post.id %}">Edit</a>
             </li>
         {% empty %}

@@ -7,7 +7,7 @@ from django.http import Http404
 
 @login_required
 def index(request):
-    posts = BlogPost.objects.filter(owner=request.user).order_by('date_added') 
+    posts = BlogPost.objects.order_by('date_added') 
     context = {'posts' : posts}
     if request.method == 'POST':
         return redirect('blogs:new_post')
@@ -30,7 +30,6 @@ def new_post(request):
 @login_required
 def edit_post(request, post_id):
     post = get_object_or_404(BlogPost, id=post_id)
-    check_topic_owner(post.owner, request.user)
     if request.method != 'POST':
         form = PostForm(instance=post)
     else:
